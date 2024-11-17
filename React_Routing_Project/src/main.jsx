@@ -17,7 +17,17 @@ import ErrorPage from './Pages/ErrorPage.jsx';
 
 import Header from './Layout/Header.jsx';
 import Signin from './Pages/Signin.jsx';
-import Profile from './Pages/Profile.jsx';
+
+import ProductsDetails from './Pages/ProductsDetails.jsx';
+import Profile from './Components/Profile.jsx';
+import UserProfile from './Components/UserProfile.jsx';
+import UserOrder from './Components/UserOrder.jsx';
+import ProtectedRoute from './Routes/ProtectedRoute.jsx';
+import { AdminProfile } from './Components/Admin/AdminProfile.jsx';
+import AdminProducts from './Components/Admin/AdminProducts.jsx';
+import AdminManagers from './Components/Admin/AdminManagers.jsx';
+import AdminCategoris from './Components/Admin/AdminCategoris.jsx';
+import AdminRoutes from './Routes/AdminRoutes.jsx';
 
 
 const router = createBrowserRouter([
@@ -27,13 +37,14 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/', // Relative path (no leading slash)
-        element: <Home />,
+        element: <Products />,
       },
       
      
+
       {
-        path: 'products', // Relative path (no leading slash)
-        element: <Products />,
+        path: 'products/:id',
+        element: <ProductsDetails />,
       },
       {
         path: 'contact',
@@ -42,6 +53,40 @@ const router = createBrowserRouter([
       {
         path: 'about',
         element: <About />,
+      },
+      {
+        path: '/dashboard/user',
+        element: <ProtectedRoute />,
+        children:[
+          {
+            path:'profile',
+            element:<Profile />
+          },
+          {
+            path:'orders',
+            element:<UserOrder />
+          }
+        ]
+      },
+
+      {
+        path: '/dashboard/admin',
+        element: <AdminRoutes />,
+        children:[
+          {
+            path:'profile',
+            element:<AdminProfile />
+          },
+          {
+            path:'products',
+            element:<AdminProducts />
+          },
+          {
+            path:'manageUser',
+            element:<AdminManagers />
+          },   
+        
+        ]
       },
       {
         path: 'profile',
@@ -53,6 +98,11 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+
+
+
+
   {
     path: '*', // Catch-all route for 404 errors
     element: <ErrorPage />,

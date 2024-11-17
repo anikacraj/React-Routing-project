@@ -29,7 +29,7 @@ function Profile() {
 </p> 
 
 
-</> : <p>No Profile Exists </p> }
+</> : <p style={{textAlign:'center'}}>No Profile Exists </p> }
 
 
 </div>

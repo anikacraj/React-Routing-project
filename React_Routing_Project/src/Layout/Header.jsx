@@ -1,8 +1,22 @@
-import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import '../index.css'
 
-const Header = () => (
+function Header() {
+
+  const [signin,setSignin] = useState(true);
+  const navigate =useNavigate();
+
+const handleClick=()=>{
+  if(signin){
+    localStorage.removeItem('isAuthenticate ')
+    setSignin(false);
+  }
+  else{
+    navigate('/signin');
+  }
+}
+return (
   <div>
     <header className="navbar">
     <div className="navbar__brand">
@@ -11,10 +25,11 @@ const Header = () => (
 
       <nav className="navbar__links">
         <Link to="/">Home</Link>
-        <Link to="/products">Products</Link>
+        
         <Link to="/contact">Contact</Link>
         <Link to="/about">About</Link>
-        <Link to="/signin">SignIn</Link>
+        <Link onClick={handleClick} to="#">{signin ? 'Sign Out' : 'Sign In'}</Link>
+        <Link to="/profile">Profile</Link>
       </nav>
     
     </header>
@@ -23,5 +38,5 @@ const Header = () => (
     </main>
   </div>
 );
-
+}
 export default Header;
